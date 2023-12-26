@@ -1,18 +1,34 @@
-import { FaStar, FaRegHeart } from "react-icons/fa";
-import {
-  Box,
-  Button,
-  Grid,
-  HStack,
-  Image,
-  Skeleton,
-  SkeletonText,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+// src/routes/Home.tsx
+
+import { Grid } from "@chakra-ui/react";
+import { useQuery } from "@tanstack/react-query";
+import { getRooms } from "../api";
 import Room from "../components/Room";
+import RoomSkeleton from "../components/RoomSkeleton";
+
+interface IPhoto {
+  pk: string;
+  file: string;
+  description: string;
+}
+
+interface IRoom {
+  pk: number;
+  name: string;
+  country: string;
+  city: string;
+  price: number;
+  rating: number;
+  is_owner: boolean;
+  photos: IPhoto[];
+}
 
 export default function Home() {
+  const { isLoading, data } = useQuery<IRoom[], Error>({
+    queryKey: ["rooms"],
+    queryFn: getRooms,
+  });
+
   return (
     <Grid
       mt={10}
@@ -30,11 +46,23 @@ export default function Home() {
         "2xl": "repeat(5, 1fr)",
       }}
     >
-      <Box>
-        <Skeleton rounded="2xl" height={280} mb={8} />
-        <SkeletonText w="50%" noOfLines={3} />
-      </Box>
-      <Room />
+      {isLoading ? (
+        <>
+          <RoomSkeleton />
+          {/* 추가적인 RoomSkeleton 컴포넌트 */}
+        </>
+      ) : null}
+      {data?.map((room: IRoom) => (
+        <Room
+          key={room.pk}
+          imageUrl={room.photos.length > 0 ? room.photos[0].file : ""}
+          name={room.name}
+          rating={room.rating}
+          city={room.city}
+          country={room.country}
+          price={room.price}
+        />
+      ))}
     </Grid>
   );
 }
