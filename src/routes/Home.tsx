@@ -1,10 +1,10 @@
-import { Grid } from "@chakra-ui/react";
+import { Grid, useEditable } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { getRooms } from "../api";
 import Room from "../components/Room";
 import RoomSkeleton from "../components/RoomSkeleton";
 import { IRoomList } from "../types";
-
 export default function Home() {
   const { isLoading, data } = useQuery<IRoomList[]>(["rooms"], getRooms);
   return (
@@ -42,7 +42,8 @@ export default function Home() {
         <Room
           key={room.pk}
           pk={room.pk}
-          imageUrl={room.photos[0].file}
+          isOwner={room.is_owner}
+          imageUrl={room.photos[0]?.file}
           name={room.name}
           rating={room.rating}
           city={room.city}

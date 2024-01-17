@@ -44,25 +44,25 @@ export default function RoomDetail() {
         templateRows={"1fr 1fr"}
         templateColumns={"repeat(4, 1fr)"}
       >
-        {data?.photos
-          ? data.photos.slice(0, 5).map((photo, index) => (
-              <GridItem
-                colSpan={index === 0 ? 2 : 1}
-                rowSpan={index === 0 ? 2 : 1}
-                overflow={"hidden"}
-                key={index}
-              >
-                <Skeleton isLoaded={!isLoading} h="100%" w="100%">
-                  <Image
-                    objectFit={"cover"}
-                    w="100%"
-                    h="100%"
-                    src={photo.file}
-                  />
-                </Skeleton>
-              </GridItem>
-            ))
-          : null}
+        {[0, 1, 2, 3, 4].map((index) => (
+          <GridItem
+            colSpan={index === 0 ? 2 : 1}
+            rowSpan={index === 0 ? 2 : 1}
+            overflow={"hidden"}
+            key={index}
+          >
+            <Skeleton isLoaded={!isLoading} h="100%" w="100%">
+              {data?.photos && data.photos.length > 0 ? (
+                <Image
+                  objectFit={"cover"}
+                  w="100%"
+                  h="100%"
+                  src={data?.photos[index].file}
+                />
+              ) : null}
+            </Skeleton>
+          </GridItem>
+        ))}
       </Grid>
       <HStack width={"40%"} justifyContent={"space-between"} mt={10}>
         <VStack alignItems={"flex-start"}>
