@@ -58,6 +58,7 @@
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",
     "@types/react-calendar": "^4.1.0",
-    "@types/react-helmet": "^6.1.11"
+    "@types/react-helmet": "^6.1.11",
+    "babel-preset-react-app": "^4.0.0"
   }
 }
