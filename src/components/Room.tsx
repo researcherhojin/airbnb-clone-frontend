@@ -43,7 +43,8 @@ export default function Room({
     <Link to={`/rooms/${pk}`}>
       <VStack alignItems={"flex-start"}>
         <Box
-          w="100%"
+          w="271px"
+          h="280px"
           position="relative"
           overflow={"hidden"}
           mb={3}
@@ -52,8 +53,8 @@ export default function Room({
           {imageUrl ? (
             <Image
               objectFit="cover"
-              height="280px"
-              width="271px"
+              height="100%"
+              width="100%"
               src={imageUrl}
             />
           ) : (
