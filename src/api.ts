@@ -7,7 +7,7 @@ const instance = axios.create({
   baseURL:
     process.env.NODE_ENV === "development"
       ? "http://127.0.0.1:8000/api/v1/"
-      : "https://airbnbclone-2i4y.onrender.com/api/v1",
+      : "https://backend.https://www.airbnbclonetest.website/api/v1/",
   withCredentials: true,
 });
 
